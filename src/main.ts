@@ -165,7 +165,7 @@ function renderEvaluationElements() {
     //! Diese Version geht nicht--> wird die Länge der Arrays miteinander verglichen-->Why?
     // if (allClickedAnswers.length === mediumQuestions.length) {
     //   scoreButton.addEventListener("click", () => {
-    //     scoreButton.disabled = true;
+    //     scoreButton.remove();
     //     showScore();
     //     const againButton = document.createElement("button");
     //     evaluationElement.appendChild(againButton);
@@ -184,7 +184,11 @@ function renderEvaluationElements() {
     //       renderEvaluationElements();
     //     })
     //   });
+    // } else {
+    //   scoreButton.disabled = true; 
+    //   //!auf Button anzeigen lassen, dasss noch Antowrten fehlen
     // }
+
     //! Weitere version aber klappt auch nicht
     // if (allClickedAnswers.length !== mediumQuestions.length) {
     //   scoreButton.disabled = true;
@@ -192,7 +196,9 @@ function renderEvaluationElements() {
     //   scoreButton.disabled !== true;
     // }
     scoreButton.addEventListener("click", () => {
-      scoreButton.disabled = true;
+      console.log(allClickedAnswers);
+      console.log(mediumQuestions);
+      scoreButton.remove();
       showScore();
       const againButton = document.createElement("button");
       evaluationElement.appendChild(againButton);
@@ -204,6 +210,7 @@ function renderEvaluationElements() {
         if (contentElement && evaluationElement) {
           contentElement.innerHTML = "";
           evaluationElement.innerHTML = "";
+          allClickedAnswers = [];
         }
         allCorrectAnswers = []
         createDomQuizElements();
