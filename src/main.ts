@@ -100,7 +100,7 @@ function createDomQuizElements() {
         const buttonChoiceElement = document.createElement("button");
         buttonDivElement.appendChild(buttonChoiceElement);
         buttonChoiceElement.textContent = choice.toString();
-        buttonChoiceElement.className = "flex-1 p-2 bg-red-300";
+        buttonChoiceElement.className = "font-[stick-no-bills] flex-1 p-2 bg-amber-400 rounded-lg text-xs lg:text-lg";
 
         //push buttons into Array
         allButtonsPerQuestion.push(buttonChoiceElement);
@@ -120,10 +120,10 @@ function createDomQuizElements() {
       imgElement.setAttribute("src", question.url);
       questionElement.textContent = question.question;
       //style elements
-      contentElement.className =
-        "flex flex-col gap-20 my-10 items-center w-140 mx-auto";
-      questionElement.className = "text-center my-3 p-5 bg-red-100";
-      buttonDivElement.className = "flex gap-5";
+      containerDiv.className = "bg-amber-200 p-8 rounded-lg mx-3"
+      imgElement.className = "rounded-lg"
+      questionElement.className = "font-[stick-no-bills] text-center my-3 p-5 bg-amber-300 rounded-lg lg:text-lg";
+      buttonDivElement.className = "flex gap-3";
     }
   });
 }
@@ -156,10 +156,7 @@ function renderEvaluationElements() {
     evaluationElement.appendChild(scoreButton);
 
     scoreButton.textContent = "Check your score!";
-
-    evaluationElement.className =
-      "flex my-10 justify-center gap-5 w-140 mx-auto";
-    scoreButton.className = "p-2 bg-yellow-100 flex-1";
+    scoreButton.className = "font-[stick-no-bills] p-2 bg-amber-500 flex-1 rounded-lg lg:text-lg";
 
     //Eventlistener
     //! Diese Version geht nicht--> wird die Länge der Arrays miteinander verglichen-->Why?
@@ -193,16 +190,18 @@ function renderEvaluationElements() {
     // if (allClickedAnswers.length !== mediumQuestions.length) {
     //   scoreButton.disabled = true;
     // } else {
-    //   scoreButton.disabled !== true;
+    //   scoreButton.disabled = false;
     // }
     scoreButton.addEventListener("click", () => {
       console.log(allClickedAnswers);
       console.log(mediumQuestions);
+      console.log(allClickedAnswers.length);
+      console.log(mediumQuestions.length);
       scoreButton.remove();
       showScore();
       const againButton = document.createElement("button");
       evaluationElement.appendChild(againButton);
-      againButton.className = "p-2 bg-yellow-100 flex-1";
+      againButton.className = "font-[stick-no-bills] p-2 bg-amber-500 flex-1 rounded-lg lg:text-lg";
       againButton.textContent = "Play Again!"
 
       //Play Again Eventlistener
@@ -212,6 +211,7 @@ function renderEvaluationElements() {
           evaluationElement.innerHTML = "";
           allClickedAnswers = [];
         }
+        window.scrollTo({top: 0, behavior: "smooth"});
         allCorrectAnswers = []
         createDomQuizElements();
         renderEvaluationElements();
@@ -223,41 +223,46 @@ renderEvaluationElements();
 
 //show Score (used in 161)
 function showScore() {
+  //Vars for clean Code
+  const maxScore = mediumQuestions.length;
+  const score = allCorrectAnswers.length;
+  let bgColor = "";
   if (evaluationElement) {
     const scoreResultElement = document.createElement("p");
     evaluationElement.appendChild(scoreResultElement);
 
     //Styling depending on scoring
-    if (allCorrectAnswers.length === mediumQuestions.length) {
-      scoreResultElement.textContent = `${allCorrectAnswers.length}/10.You're the best`;
-      scoreResultElement.className = "flex-1 bg-green-400 text-center p-2";
+    if (score === maxScore) {
+      scoreResultElement.textContent = `${score}/10.You're the best`;
+      bgColor="bg-green-400";
     } else if (
-      allCorrectAnswers.length >= Math.floor(0.75 * mediumQuestions.length) &&
-      allCorrectAnswers.length < mediumQuestions.length
+      score >= Math.floor(0.75 * maxScore)
     ) {
-      scoreResultElement.textContent = `${allCorrectAnswers.length}/10. Pretty good!`;
-      scoreResultElement.className = "flex-1 bg-green-300 text-center p-2";
+      scoreResultElement.textContent = `${score}/10. Pretty good!`;
+      bgColor = "bg-green-300";
     } else if (
-      allCorrectAnswers.length >= Math.floor(0.5 * mediumQuestions.length) &&
-      allCorrectAnswers.length < Math.floor(0.75 * mediumQuestions.length)
+      score >= Math.floor(0.5 * maxScore)
     ) {
-      scoreResultElement.textContent = `${allCorrectAnswers.length}/10. It could be better!`;
-      scoreResultElement.className = "flex-1 bg-green-200 text-center p-2";
+      scoreResultElement.textContent = `${score}/10. It could be better!`;
+      bgColor = "bg-green-200";
     } else if (
-      allCorrectAnswers.length >= Math.floor(0.25 * mediumQuestions.length) &&
-      allCorrectAnswers.length < Math.floor(0.5 * mediumQuestions.length)
+      score >= Math.floor(0.25 * maxScore)
     ) {
-      scoreResultElement.textContent = `${allCorrectAnswers.length}/10. Try Again!`;
-      scoreResultElement.className = "flex-1 bg-red-200 text-center p-2";
+      scoreResultElement.textContent = `${score}/10. Try Again!`;
+      bgColor = "bg-red-200";
     } else if (
-      allCorrectAnswers.length >= Math.floor(0.1 * mediumQuestions.length) &&
-      allCorrectAnswers.length < Math.floor(0.25 * mediumQuestions.length)
+      score >= Math.floor(0.1 * maxScore) 
     ) {
-      scoreResultElement.textContent = "Oh no! Study more!";
-      scoreResultElement.className = "flex-1 bg-red-300 text-center p-2";
-    } else if (allCorrectAnswers.length === 0) {
-      scoreResultElement.textContent = `${allCorrectAnswers.length}/10. This is hopeless!`;
-      scoreResultElement.className = "flex-1 bg-red-400 text-center p-2";
+      scoreResultElement.textContent = `${score}/10. Oh no! Study more!`;
+      bgColor = "bg-red-300";
+    } else if (score === 0) {
+      scoreResultElement.textContent = `${score}/10. This is hopeless!`;
+      bgColor = "bg-red-500";
     }
+    scoreResultElement.className = `${bgColor} font-[stick-no-bills] flex-1 text-center p-2 rounded-lg lg:text-lg`
   }
 }
+
+
+//!Read me
+//! 1 Problem (oben) lösen

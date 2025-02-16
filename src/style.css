@@ -1,1 +1,6 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+@font-face {
+    font-family: "stick-no-bills";
+    src: url("/StickNoBills-VariableFont_wght.ttf") format("truetype");
+}
