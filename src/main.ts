@@ -146,52 +146,32 @@ function checkAnswer(
     button.className = "flex-1 p-2 bg-red-500";
     allClickedAnswers.push(choice.toString());
   }
+  if (allClickedAnswers.length !== mediumQuestions.length) {
+    scoreButton.disabled = true;
+  } else {
+    scoreButton.disabled = false;
+    getEvaluation();
+  }
 }
+
+let scoreButton: HTMLButtonElement;
 
 //Evaluation
 function renderEvaluationElements() {
   if (evaluationElement) {
-    const scoreButton = document.createElement("button");
-
+    scoreButton = document.createElement("button");
     evaluationElement.appendChild(scoreButton);
 
     scoreButton.textContent = "Check your score!";
     scoreButton.className = "font-[stick-no-bills] p-2 bg-amber-500 flex-1 rounded-lg lg:text-lg";
 
-    //Eventlistener
-    //! Diese Version geht nicht--> wird die Länge der Arrays miteinander verglichen-->Why?
-    // if (allClickedAnswers.length === mediumQuestions.length) {
-    //   scoreButton.addEventListener("click", () => {
-    //     scoreButton.remove();
-    //     showScore();
-    //     const againButton = document.createElement("button");
-    //     evaluationElement.appendChild(againButton);
-    //     againButton.className = "p-2 bg-yellow-100 flex-1";
-    //     againButton.textContent = "Play Again!"
-  
-    //     //Play Again Eventlistener
-    //     againButton.addEventListener("click", ()=> {
-    //       if (contentElement && evaluationElement) {
-    //         contentElement.innerHTML = "";
-    //         evaluationElement.innerHTML = "";
-    //       }
-    //       scoreButton.disabled = false;
-    //       allCorrectAnswers = []
-    //       createDomQuizElements();
-    //       renderEvaluationElements();
-    //     })
-    //   });
-    // } else {
-    //   scoreButton.disabled = true; 
-    //   //!auf Button anzeigen lassen, dasss noch Antowrten fehlen
-    // }
+    return scoreButton;
+  }
+}
+renderEvaluationElements();
 
-    //! Weitere version aber klappt auch nicht
-    // if (allClickedAnswers.length !== mediumQuestions.length) {
-    //   scoreButton.disabled = true;
-    // } else {
-    //   scoreButton.disabled = false;
-    // }
+function getEvaluation () {
+  if (evaluationElement) {
     scoreButton.addEventListener("click", () => {
       console.log(allClickedAnswers);
       console.log(mediumQuestions);
@@ -203,7 +183,7 @@ function renderEvaluationElements() {
       evaluationElement.appendChild(againButton);
       againButton.className = "font-[stick-no-bills] p-2 bg-amber-500 flex-1 rounded-lg lg:text-lg";
       againButton.textContent = "Play Again!"
-
+  
       //Play Again Eventlistener
       againButton.addEventListener("click", ()=> {
         if (contentElement && evaluationElement) {
@@ -219,13 +199,13 @@ function renderEvaluationElements() {
     });
   }
 }
-renderEvaluationElements();
 
-//show Score (used in 161)
+//show Score (used in 181)
 function showScore() {
   //Vars for clean Code
   const maxScore = mediumQuestions.length;
   const score = allCorrectAnswers.length;
+  const result = score/10 *100;
   let bgColor = "";
   if (evaluationElement) {
     const scoreResultElement = document.createElement("p");
@@ -233,36 +213,32 @@ function showScore() {
 
     //Styling depending on scoring
     if (score === maxScore) {
-      scoreResultElement.textContent = `${score}/10.You're the best`;
+      scoreResultElement.textContent = `${result}% correct answers. You're the best`;
       bgColor="bg-green-400";
     } else if (
       score >= Math.floor(0.75 * maxScore)
     ) {
-      scoreResultElement.textContent = `${score}/10. Pretty good!`;
+      scoreResultElement.textContent = `${result}% correct answers. Pretty good!`;
       bgColor = "bg-green-300";
     } else if (
       score >= Math.floor(0.5 * maxScore)
     ) {
-      scoreResultElement.textContent = `${score}/10. It could be better!`;
+      scoreResultElement.textContent = `${result}% correct answers. It could be better!`;
       bgColor = "bg-green-200";
     } else if (
       score >= Math.floor(0.25 * maxScore)
     ) {
-      scoreResultElement.textContent = `${score}/10. Try Again!`;
+      scoreResultElement.textContent = `${result}% correct answers. Try Again!`;
       bgColor = "bg-red-200";
     } else if (
       score >= Math.floor(0.1 * maxScore) 
     ) {
-      scoreResultElement.textContent = `${score}/10. Oh no! Study more!`;
+      scoreResultElement.textContent = `${result}% correct answers. Oh no! Study more!`;
       bgColor = "bg-red-300";
     } else if (score === 0) {
-      scoreResultElement.textContent = `${score}/10. This is hopeless!`;
+      scoreResultElement.textContent = `${result}% correct answers. This is hopeless!`;
       bgColor = "bg-red-500";
     }
     scoreResultElement.className = `${bgColor} font-[stick-no-bills] flex-1 text-center p-2 rounded-lg lg:text-lg`
   }
 }
-
-
-//!Read me
-//! 1 Problem (oben) lösen
