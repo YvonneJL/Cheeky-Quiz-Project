@@ -17,6 +17,8 @@ Das Quiz umfasst insgesamt 10 Fragen, die alle korrekt beantwortet werden müsse
 
 ## Über das Projekt
 
+   <img style="object-fit: contain" src="./public/iPhone-13-PRO-localhost.png">
+
 Für die Entwicklung dieses Projekts habe ich Visual Studio Code als Entwicklungsumgebung verwendet und die Website unter Einsatz von HTML sowie Tailwind CSS gestaltet. Die Funktionen zum Klicken der Antworten, zur Auswertung sowie zum Neustarten des Quiz habe ich in TypeScript implementiert.
 
 Das Hauptziel dieses Projekts war es, die bis dahin erlernten Konzepte, insbesondere in TypeScript, praxisnah anzuwenden.
@@ -75,4 +77,4 @@ Für das Design des Projekts gab es keine spezifischen Vorgaben. Ich habe mich f
 ## Deployment
 
 Hier gelangst du direkt zur Webseite
-- [Cheeky Quiz](https://hangman-game-seven-xi.vercel.app/)
+- [Cheeky Quiz](cheeky-quiz-project-a6v22yoy9-yvijls-projects.vercel.app)

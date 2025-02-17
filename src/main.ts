@@ -69,7 +69,6 @@ const mediumQuestions: QuizItem[] = [
     answer: "Pacific Ocean",
   },
 ];
-console.log(mediumQuestions.length);
 
 // div aus html ziehen
 const contentElement = document.querySelector("#content");
@@ -100,7 +99,8 @@ function createDomQuizElements() {
         const buttonChoiceElement = document.createElement("button");
         buttonDivElement.appendChild(buttonChoiceElement);
         buttonChoiceElement.textContent = choice.toString();
-        buttonChoiceElement.className = "font-[stick-no-bills] flex-1 p-2 bg-amber-400 rounded-lg text-xs lg:text-lg";
+        buttonChoiceElement.className =
+          "font-[stick-no-bills] flex-1 p-2 bg-amber-400 rounded-lg text-xs lg:text-lg";
 
         //push buttons into Array
         allButtonsPerQuestion.push(buttonChoiceElement);
@@ -115,14 +115,14 @@ function createDomQuizElements() {
           });
         });
       });
-
       //fill elements with content
       imgElement.setAttribute("src", question.url);
       questionElement.textContent = question.question;
       //style elements
-      containerDiv.className = "bg-amber-200 p-8 rounded-lg mx-3"
-      imgElement.className = "rounded-lg"
-      questionElement.className = "font-[stick-no-bills] text-center my-3 p-5 bg-amber-300 rounded-lg lg:text-lg";
+      containerDiv.className = "bg-amber-200 p-8 rounded-lg mx-3";
+      imgElement.className = "rounded-lg";
+      questionElement.className =
+        "font-[stick-no-bills] text-center my-3 p-5 bg-amber-300 rounded-lg lg:text-lg";
       buttonDivElement.className = "flex gap-3";
     }
   });
@@ -146,6 +146,7 @@ function checkAnswer(
     button.className = "flex-1 p-2 bg-red-500";
     allClickedAnswers.push(choice.toString());
   }
+  //checked all answers?-->get Evaluation
   if (allClickedAnswers.length !== mediumQuestions.length) {
     scoreButton.disabled = true;
   } else {
@@ -155,7 +156,6 @@ function checkAnswer(
 }
 
 let scoreButton: HTMLButtonElement;
-
 //Evaluation
 function renderEvaluationElements() {
   if (evaluationElement) {
@@ -163,14 +163,16 @@ function renderEvaluationElements() {
     evaluationElement.appendChild(scoreButton);
 
     scoreButton.textContent = "Check your score!";
-    scoreButton.className = "font-[stick-no-bills] p-2 bg-amber-500 flex-1 rounded-lg lg:text-lg";
+    scoreButton.className =
+      "font-[stick-no-bills] p-2 bg-amber-500 flex-1 rounded-lg lg:text-lg";
 
     return scoreButton;
   }
 }
 renderEvaluationElements();
 
-function getEvaluation () {
+
+function getEvaluation() {
   if (evaluationElement) {
     scoreButton.addEventListener("click", () => {
       console.log(allClickedAnswers);
@@ -181,31 +183,32 @@ function getEvaluation () {
       showScore();
       const againButton = document.createElement("button");
       evaluationElement.appendChild(againButton);
-      againButton.className = "font-[stick-no-bills] p-2 bg-amber-500 flex-1 rounded-lg lg:text-lg";
-      againButton.textContent = "Play Again!"
-  
+      againButton.className =
+        "font-[stick-no-bills] p-2 bg-amber-500 flex-1 rounded-lg lg:text-lg";
+      againButton.textContent = "Play Again!";
+
       //Play Again Eventlistener
-      againButton.addEventListener("click", ()=> {
+      againButton.addEventListener("click", () => {
         if (contentElement && evaluationElement) {
           contentElement.innerHTML = "";
           evaluationElement.innerHTML = "";
           allClickedAnswers = [];
         }
-        window.scrollTo({top: 0, behavior: "smooth"});
-        allCorrectAnswers = []
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        allCorrectAnswers = [];
         createDomQuizElements();
         renderEvaluationElements();
-      })
+      });
     });
   }
 }
 
-//show Score (used in 181)
+//show Score (used in 183)
 function showScore() {
   //Vars for clean Code
   const maxScore = mediumQuestions.length;
   const score = allCorrectAnswers.length;
-  const result = score/10 *100;
+  const result = (score / 10) * 100;
   let bgColor = "";
   if (evaluationElement) {
     const scoreResultElement = document.createElement("p");
@@ -214,31 +217,23 @@ function showScore() {
     //Styling depending on scoring
     if (score === maxScore) {
       scoreResultElement.textContent = `${result}% correct answers. You're the best`;
-      bgColor="bg-green-400";
-    } else if (
-      score >= Math.floor(0.75 * maxScore)
-    ) {
+      bgColor = "bg-green-400";
+    } else if (score >= Math.floor(0.75 * maxScore)) {
       scoreResultElement.textContent = `${result}% correct answers. Pretty good!`;
       bgColor = "bg-green-300";
-    } else if (
-      score >= Math.floor(0.5 * maxScore)
-    ) {
+    } else if (score >= Math.floor(0.5 * maxScore)) {
       scoreResultElement.textContent = `${result}% correct answers. It could be better!`;
       bgColor = "bg-green-200";
-    } else if (
-      score >= Math.floor(0.25 * maxScore)
-    ) {
+    } else if (score >= Math.floor(0.25 * maxScore)) {
       scoreResultElement.textContent = `${result}% correct answers. Try Again!`;
       bgColor = "bg-red-200";
-    } else if (
-      score >= Math.floor(0.1 * maxScore) 
-    ) {
+    } else if (score >= Math.floor(0.1 * maxScore)) {
       scoreResultElement.textContent = `${result}% correct answers. Oh no! Study more!`;
       bgColor = "bg-red-300";
     } else if (score === 0) {
       scoreResultElement.textContent = `${result}% correct answers. This is hopeless!`;
       bgColor = "bg-red-500";
     }
-    scoreResultElement.className = `${bgColor} font-[stick-no-bills] flex-1 text-center p-2 rounded-lg lg:text-lg`
+    scoreResultElement.className = `${bgColor} font-[stick-no-bills] flex-1 text-center p-2 rounded-lg lg:text-lg`;
   }
 }
