@@ -1,6 +1,7 @@
 # Cheeky Quiz
+<div class="flex justify-center items-center">
 [iPhone-13-PRO-localhost-k1rli2i1iigh59.webm](https://github.com/user-attachments/assets/43467a14-1d94-4677-b580-3e060fc1b96a)
-
+<div/>
 
 
 Das Projekt „Cheeky Quiz“ wurde im Rahmen des sechsmonatigen Web-Development-Kurses während des „TypeScript“-Moduls entwickelt. Ziel dieses Projekts war es, meine neu erlernten Fähigkeiten in der Programmiersprache TypeScript zu demonstrieren. 
