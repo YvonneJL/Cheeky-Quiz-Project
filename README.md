@@ -16,8 +16,9 @@ Das Quiz umfasst insgesamt 10 Fragen, die alle korrekt beantwortet werden müsse
 - [Deployment](#deployment)
 
 ## Über das Projekt
-
+   <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 2vw">
    <img style="object-fit: contain" src="./public/iPhone-13-PRO-localhost.png">
+   </div>
 
 Für die Entwicklung dieses Projekts habe ich Visual Studio Code als Entwicklungsumgebung verwendet und die Website unter Einsatz von HTML sowie Tailwind CSS gestaltet. Die Funktionen zum Klicken der Antworten, zur Auswertung sowie zum Neustarten des Quiz habe ich in TypeScript implementiert.
 
