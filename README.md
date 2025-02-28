@@ -18,7 +18,7 @@ Das Quiz umfasst insgesamt 10 Fragen, die alle korrekt beantwortet werden müsse
 - [Deployment](#deployment)
 
 ## Über das Projekt
-   <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 2vw">
+   <div style="display: flex; justify-content: center; align-items: center">
    <img style="object-fit: contain" src="./public/iPhone-13-PRO-localhost.png">
    </div>
 
